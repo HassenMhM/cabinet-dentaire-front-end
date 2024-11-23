@@ -15,8 +15,8 @@ export const Login=()=>{
                 </div>
                 <input type="text" className='bg-gray-50  p-2 border-solid border-2 border-gray-200  mb-8 text-lg'placeholder="Entrez votre numero de telephone" required/>
                 <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Entrez votre mot de passe" required/>
-                <button className="bg-blue-400 text-white">Se connecter</button>
-                <p className="text-black text-base  mt-7 ml-2">T&apos;as pas un compte ? <a href="#">S&apos;identifier</a></p>
+                <button className="bg-blue-400 text-white rounded transition-all duration-300 hover:bg-blue-700 hover:scale-105">Se connecter</button>
+                <p className="text-black text-base  mt-7 ml-2 ">T&apos;as pas un compte ? <a href="#">S&apos;identifier</a></p>
             </form>
         </div>
     </div>
