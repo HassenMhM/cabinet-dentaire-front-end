@@ -11,11 +11,11 @@ export const Header=()=>{
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg " >Accueil</a>
             <a href="#apropos" className="mr-3 ml-3 text-white font-extralight text-lg" >A propos</a>
             <a href="#services" className="mr-3 ml-3 text-white font-extralight text-lg" >Services</a>
-            <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">Rendez-vous</a>
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">informations patients</a>
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">Galerie</a>
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">Blog</a>
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">Contact</a>
+            <a href="/cabinait-dentaire/login" className="mr-3 ml-3 text-white font-extralight text-lg">Se connecter</a>
         </div>
     </div>
     </>)

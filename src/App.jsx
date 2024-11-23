@@ -1,17 +1,22 @@
-import { AproposPage } from "./components/AproposPage"
-import { Header } from "./components/Header"
-import { HomePage } from "./components/HomePage"
-import { ServicesPage } from "./components/services/ServicesPage"
-import { Login} from "./components/Login"
+import { Login } from "./components/Login"
+import {createBrowserRouter,RouterProvider} from 'react-router-dom'
+import LandingPage from "./LandingPage"
+
+const router=createBrowserRouter([
+  {
+    path:"/cabinait-dentaire",
+    element:<LandingPage/>
+  },
+  {
+    path:"/cabinait-dentaire/login",
+    element:<Login/>,
+  }
+])
 
 function App() {
   return (
     <>
-      <Header/>
-      <HomePage/>
-      <AproposPage/>
-      <ServicesPage/>
-      <Login/>
+      <RouterProvider router={router}/>
     </>
   )
 }
