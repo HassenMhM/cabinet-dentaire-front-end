@@ -1,7 +1,7 @@
 export const Contact = ()=>{
     return (
         <>
-    <div className="bg-gray-100 text-gray-800 min-h-screen">
+    <div className="bg-gray-200 text-gray-800 pt-20 min-h-screen">
       <header className="bg-blue-600 text-white text-center py-6">
         <h1 className="text-3xl font-bold">Contactez-nous</h1>
         <p className="text-lg">Nous sommes à votre écoute pour toutes vos questions</p>
@@ -83,10 +83,11 @@ export const Contact = ()=>{
         </div>
       </main>
 
-      <footer className="bg-gray-800 text-white text-center py-4">
+      
+    </div>
+    <footer className="bg-gray-800 text-white text-center py-4">
         <p>&copy; 2024 Cabinet Dentaire. Tous droits réservés.</p>
       </footer>
-    </div>
         </>
     )
 }
