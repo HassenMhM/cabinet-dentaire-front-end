@@ -1,5 +1,8 @@
+/* eslint-disable react/prop-types */
+import { Link } from 'react-router-dom'
 import background from '../assets/home-background.jpg'
-export const Header=()=>{
+export const Header=(props)=>{
+    const logedIn=props.logedIn
     return(
     <>
     <img src={background} className='absolute -z-10 top-0 h-max w-screen brightness-50' alt="" />
@@ -15,7 +18,7 @@ export const Header=()=>{
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">Galerie</a>
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">Blog</a>
             <a href="" className="mr-3 ml-3 text-white font-extralight text-lg">Contact</a>
-            <a href="/cabinait-dentaire/login" className="mr-3 ml-3 text-white font-extralight text-lg">Se connecter</a>
+            {logedIn==true?<><Link to={`/${localStorage.getItem('AuthSecure')}/my-account`} className="mr-3 ml-3 text-white font-extralight text-lg">Mon compte</Link><button onClick={()=>{localStorage.setItem('isAuth',"false");localStorage.setItem('AuthSecure',"") ;window.location.replace('/')}}>Deconnecter</button></>:<a href="/login"  className="mr-3 ml-3 text-white font-extralight text-lg">Se connecter</a>}
         </div>
     </div>
     </>)

@@ -1,37 +1,75 @@
 import { Link } from "react-router-dom"
 import { AnotherHeader } from "../utils/AnotherHeader"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const SignUp=()=>{
-  const [data,setData]=useState('')
-    const signup=()=>{
-      const name=document.getElementById('username').value
-        const email=document.getElementById('email').value
-        const password=document.getElementById('password').value
-        setData({
-          "name":name,
-          "email":email,
-          "password":password,
-          "role_id":"2"
+  const [loading, setLoading] = useState(false);
+  const [form,setForm]=useState({
+    "username":'',
+    "email":'',
+    "password":'',
+    "role_id":"2"
+  })
+  const [warning,setWarning]=useState({
+    "username":null,
+    "passwordNotSame":null,
+    "shortPassword":null
+  })
+  const [alreadyExist,setAlreadyExist]=useState({error:null})
+  const handleChange=(e)=>{
+    const {name,value}=e.target
+    setForm((prev)=>({
+      ...prev,
+      [name]:value
+    }))
+  }
+  const handleKeyDown=(e)=>{
+    if(e.key==='Enter'){signup()}
+}
+  useEffect(()=>{
+    if(form.username.length<4 && form.username.length>0){
+      setWarning((prev)=>({...prev,"username":"Le nom d'utilisateur doit contenir plus de trois caractere !!"}))
+    }else{setWarning((prev)=>({...prev,"username":null}))}
+  },[form.username])
+  useEffect(()=>{
+    if(form.password.length<6 && form.password.length>0){
+      setWarning((prev)=>({...prev,"shortPassword":"Le mot de passe doit contenir plus de 6 caractere !!"}))
+    }else{setWarning((prev)=>({...prev,"shortPassword":null}))}
+  },[form.password])
+  const signup= async ()=>{
+    if(form.password!==document.getElementById('confirmedPassword').value){
+      setWarning((prev)=>({...prev,"passwordNotSame":"Les deux mot de passe doivent étre les memes !!"}))
+    }else{
+      await fetch('/api/users/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(form), 
         })
-        fetch('/api/users/register', {
-            method: 'POST', // HTTP method
-            headers: {
-              'Content-Type': 'application/json', // Sending JSON data
-            },
-            body: JSON.stringify(data), // Converting JS object to JSON string
-          })
-            .then((response) => response.json()) // Parsing JSON response
-            .then((result) => {
-              console.log('Success:', result);
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
+        .then((response) => response.json()) 
+        .then((result) => {
+            console.log('Success:', result);
+            if("error" in result){
+              if(result.error=='duplicate key value violates unique constraint "users_email_key"'){
+                setAlreadyExist((prev)=>({...prev,error:"Email déja inscrit !!"}))
+              }
+              if(result.error=='duplicate key value violates unique constraint "unique_username"'){
+                setAlreadyExist((prev)=>({...prev,error:"Username déja utilisé !!"}))
+              }
+            }else{
+              setLoading(true);
+              window.location.replace("/login") 
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+      });
     }
-    console.log(data)
+    }
     return(<>
-    <AnotherHeader/>
+    {loading?(<div className="bg-white flex flex-col mt-48"><h2 className="text-green-400 text-center">Votre compte a est éte crée avec succés !</h2><h1 className="text-center text-blue-950">Chargement...</h1></div>):(<>
+      <AnotherHeader/>
     <div className="flex justify-between bg-blue-400 pb-20 pt-10">
         <div className="flex flex-col text-xl justify-start  text-white p-20 pt-36">
             <h1>Nouveau patient</h1>
@@ -44,14 +82,19 @@ export const SignUp=()=>{
                 <div className="flex  justify-center">
                     <i className="fa-regular fa-user text-6xl text-center mb-5 mt-0 text-blue-400 bg-gray-100 rounded-full p-2"></i>
                 </div>
-                <input type="text" className='bg-gray-50  p-2 border-solid border-2 border-gray-200  mb-8 text-lg'placeholder="Entrez votre nom d'utilisateur" required id="username"/>
-                <input type="email" className='bg-gray-50  p-2 border-solid border-2 border-gray-200  mb-8 text-lg'placeholder="Entrez votre email" required id="email"/>
-                <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Entrez votre mot de passe"  required/>
-                <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Confirmez votre mot de passe" id="password" required/>
+                <input type="text" className='bg-gray-50  p-2 border-solid border-2 border-gray-200 w-full mb-8 text-lg'placeholder="Entrez votre nom d'utilisateur" name="username" value={form.username} onChange={handleChange} required id="username"/>
+                {warning.username ===null ? '':<p className="-mt-8 mb-2 text-red-600">{warning.username}</p>}
+                <input type="email" className='bg-gray-50  p-2 border-solid border-2 border-gray-200 w-full mb-8 text-lg'placeholder="Entrez votre email" required name='email' value={form.email} onChange={handleChange} id="email"/>
+                <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Entrez votre mot de passe" id="password" name="password" value={form.password} onChange={handleChange} required/>
+                {warning.shortPassword === null ? <></>:<p className="-mt-8 mb-2 text-red-600">{warning.shortPassword}</p>}
+                <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Confirmez votre mot de passe" id="confirmedPassword" onKeyDown={handleKeyDown} required/>
+                {warning.passwordNotSame === null ? <></>:<p className="-mt-8 mb-2 text-red-600">{warning.passwordNotSame}</p>}
+                {alreadyExist.error==null?<></>:<p className="-mt-3 mb-2  text-red-600">{alreadyExist.error}</p>}
                 <button className="bg-blue-400 text-white rounded transition-all duration-300 hover:bg-blue-700 hover:scale-105" onClick={signup}>S&apos;identifier</button>
-                <p className="text-black text-base  mt-7 ml-2 ">T&apos;as un compte ? <Link to={'/cabinait-dentaire/login'}>Se connecter</Link></p>
+                <p className="text-black text-base  mt-7 ml-2 ">T&apos;as un compte ? <Link to={'/login'}>Se connecter</Link></p>
             </div>
         </div>
     </div>
+    </>)}
     </>)
 }
