@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import { AnotherHeader } from "../utils/AnotherHeader"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { LoadingPage } from "../utils/LoadingPage";
 
 export const SignUp=()=>{
   const [loading, setLoading] = useState(false);
+  const [resultLoading, setResultLoading] = useState(false);
   const [form,setForm]=useState({
     "username":'',
     "email":'',
@@ -13,8 +15,10 @@ export const SignUp=()=>{
   const [warning,setWarning]=useState({
     "username":null,
     "passwordNotSame":null,
-    "shortPassword":null
+    "shortPassword":null,
+    "invalidEmail":null
   })
+  const isInitialMountEmail=useRef(true)
   const [alreadyExist,setAlreadyExist]=useState({error:null})
   const handleChange=(e)=>{
     const {name,value}=e.target
@@ -36,9 +40,18 @@ export const SignUp=()=>{
       setWarning((prev)=>({...prev,"shortPassword":"Le mot de passe doit contenir plus de 6 caractere !!"}))
     }else{setWarning((prev)=>({...prev,"shortPassword":null}))}
   },[form.password])
+  useEffect(()=>{
+    if(isInitialMountEmail.current){isInitialMountEmail.current=false}
+    else if(form.email.length===0){setWarning((prev)=>({...prev,"invalidEmail":null}))}
+    else if(!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(form.email)){
+        setWarning((prev)=>({...prev,"invalidEmail":"Adresse email invalide,veuillez entrer une autre adresse"}))
+    }else{setWarning((prev)=>({...prev,"invalidEmail":null}))}
+},[form.email])
   const signup= async ()=>{
+    setResultLoading((prev)=>!prev)
     if(form.password!==document.getElementById('confirmedPassword').value){
       setWarning((prev)=>({...prev,"passwordNotSame":"Les deux mot de passe doivent étre les memes !!"}))
+      setResultLoading((prev)=>!prev)
     }else{
       await fetch('/api/users/register', {
         method: 'POST',
@@ -50,6 +63,7 @@ export const SignUp=()=>{
         .then((response) => response.json()) 
         .then((result) => {
             console.log('Success:', result);
+            setResultLoading((prev)=>!prev)
             if("error" in result){
               if(result.error=='duplicate key value violates unique constraint "users_email_key"'){
                 setAlreadyExist((prev)=>({...prev,error:"Email déja inscrit !!"}))
@@ -68,7 +82,7 @@ export const SignUp=()=>{
     }
     }
     return(<>
-    {loading?(<div className="bg-white flex flex-col mt-48"><h2 className="text-green-400 text-center">Votre compte a est éte crée avec succés !</h2><h1 className="text-center text-blue-950">Chargement...</h1></div>):(<>
+    {loading?(<LoadingPage text={"Votre compte a été creé avec success"}/>):(<>
       <AnotherHeader/>
     <div className="flex justify-between bg-blue-400 pb-20 pt-10">
         <div className="flex flex-col text-xl justify-start  text-white p-20 pt-36">
@@ -85,12 +99,13 @@ export const SignUp=()=>{
                 <input type="text" className='bg-gray-50  p-2 border-solid border-2 border-gray-200 w-full mb-8 text-lg'placeholder="Entrez votre nom d'utilisateur" name="username" value={form.username} onChange={handleChange} required id="username"/>
                 {warning.username ===null ? '':<p className="-mt-8 mb-2 text-red-600">{warning.username}</p>}
                 <input type="email" className='bg-gray-50  p-2 border-solid border-2 border-gray-200 w-full mb-8 text-lg'placeholder="Entrez votre email" required name='email' value={form.email} onChange={handleChange} id="email"/>
+                {warning.invalidEmail===null?'':<p className="-mt-8 mb-2 text-red-600">{warning.invalidEmail}</p>}
                 <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Entrez votre mot de passe" id="password" name="password" value={form.password} onChange={handleChange} required/>
                 {warning.shortPassword === null ? <></>:<p className="-mt-8 mb-2 text-red-600">{warning.shortPassword}</p>}
                 <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Confirmez votre mot de passe" id="confirmedPassword" onKeyDown={handleKeyDown} required/>
                 {warning.passwordNotSame === null ? <></>:<p className="-mt-8 mb-2 text-red-600">{warning.passwordNotSame}</p>}
                 {alreadyExist.error==null?<></>:<p className="-mt-3 mb-2  text-red-600">{alreadyExist.error}</p>}
-                <button className="bg-blue-400 text-white rounded transition-all duration-300 hover:bg-blue-700 hover:scale-105" onClick={signup}>S&apos;identifier</button>
+                {resultLoading==true?<button className="bg-blue-300 text-white rounded transition-all duration-300 hover:bg-blue-200 ">Attend...</button>:<button className="bg-blue-400 text-white rounded transition-all duration-300 hover:bg-blue-700 hover:scale-105" onClick={signup}>S&apos;identifier</button>}
                 <p className="text-black text-base  mt-7 ml-2 ">T&apos;as un compte ? <Link to={'/login'}>Se connecter</Link></p>
             </div>
         </div>

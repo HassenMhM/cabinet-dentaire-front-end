@@ -5,6 +5,9 @@ import { SignUp } from "./components/SignUp"
 import { ProtectedRoute } from "./utils/ProtectedRoute"
 import { ProtectedLogedRoute } from "./utils/ProtectedLogedRoute"
 import { MyAccount } from "./components/MyAccount"
+import { SecuritéPage } from "./components/SecuritéPage"
+import { ChangePasswordPage } from "./components/ChangePasswordPage"
+import { RendezVous } from "./components/RendezVous"
 
 const router=createBrowserRouter([
   {
@@ -26,6 +29,18 @@ const router=createBrowserRouter([
   {
     path:"/:token/my-account",
     element:<ProtectedRoute><MyAccount/></ProtectedRoute> 
+  },
+  {
+    path:"/:token/my-account/Sécurité&confidentialité",
+    element:<ProtectedRoute><SecuritéPage/></ProtectedRoute> 
+  },
+  {
+    path:"/:token/my-account/Sécurité&confidentialité/ChangePassword",
+    element:<ProtectedRoute><ChangePasswordPage/></ProtectedRoute> 
+  },
+  {
+    path:"/:token/rendez-vous",
+    element:<ProtectedRoute><RendezVous/></ProtectedRoute> 
   }
 ])
 

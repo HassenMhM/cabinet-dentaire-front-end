@@ -7,6 +7,7 @@ import { Contact } from "./components/Contact"
 import {Gallery} from './components/Gallery'
 import { useLocation } from "react-router-dom"
 import { useEffect } from "react"
+import { Footer } from "./utils/Footer"
 
 function LandingPage(props) {
     const logedIn=props.logedIn
@@ -24,6 +25,7 @@ function LandingPage(props) {
         <ServicesPage/>
         <Gallery/>
         <Contact/>
+        <Footer/>
     </>
     )
 }

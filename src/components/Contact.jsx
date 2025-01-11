@@ -2,9 +2,9 @@ export const Contact = ()=>{
     return (
         <>
     <div className="bg-gray-200 text-gray-800 pt-20 min-h-screen">
-      <header className="bg-blue-600 text-white text-center py-6">
-        <h1 className="text-3xl font-bold">Contactez-nous</h1>
-        <p className="text-lg">Nous sommes à votre écoute pour toutes vos questions</p>
+      <header className="text-center py-6">
+        <h1 className="text-3xl font-semibold text-black">Contactez-nous</h1>
+        <p className="text-lg text-black">Nous sommes à votre écoute pour toutes vos questions</p>
       </header>
 
       <main className="container mx-auto px-4 py-10">
@@ -73,21 +73,19 @@ export const Contact = ()=>{
                         mohamedbm7777@gmail.com 
                     </a>
              </p>
-            <iframe
+            {/* <iframe
               className="w-full h-64 rounded-md shadow-md"
               src="https://www.google.dz/maps/place/36%C2%B029'33.8%22N+2%C2%B049'21.9%22E/@36.4927333,2.8201601,17z/data=!3m1!4b1!4m13!1m8!3m7!1s0x128f0c66865a4cd1:0xccfcf9c073646dfe!2sBlida!3b1!8m2!3d36.4735715!4d2.8323153!16zL20vMDRyZG1q!3m3!8m2!3d36.492729!4d2.822735?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
               allowFullScreen=""
               loading="lazy"
-            ></iframe>
+            ></iframe> */}
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d25664.97445131087!2d2.82779735!3d36.478773999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sdz!4v1734890701616!5m2!1sfr!2sdz" allowfullscreen="" loading="lazy" className="w-full h-64 rounded-md shadow-md" referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </main>
 
       
     </div>
-    <footer className="bg-gray-800 text-white text-center py-4">
-        <p>&copy; 2024 Cabinet Dentaire. Tous droits réservés.</p>
-      </footer>
         </>
     )
 }

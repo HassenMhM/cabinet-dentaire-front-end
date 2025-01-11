@@ -7,6 +7,7 @@ export const Login=()=>{
         "email":"",
         "password":""
     })
+    const [isLoading,setIsLoading]=useState(false)
     const [notExist,setNotExist]=useState({
         error:false,message:""
     })
@@ -19,6 +20,7 @@ export const Login=()=>{
         if(e.key==='Enter'){logIn()}
     }
     const logIn = async()=>{
+        setIsLoading((prev)=>!prev)
         await fetch('/api/users/login', {
             method: 'POST',
             headers: {
@@ -28,6 +30,7 @@ export const Login=()=>{
             })
             .then((response) => response.json()) 
             .then((result) => {
+                setIsLoading((prev)=>!prev)
                 console.log('Success:', result);
                 if(result.message=="Invalid password"||form.password.length===0){
                     setpasswordWarning((prev)=>({...prev,error:true,message:"Votre mot de passe est incorrect !"}))
@@ -36,6 +39,7 @@ export const Login=()=>{
                 }else if("token" in result){
                     localStorage.setItem('isAuth',"true")
                     localStorage.setItem('AuthSecure',result.token)
+                    localStorage.setItem('UserEmail',form.email)
                     window.location.replace(`/${result.token}`)
                 }
             })
@@ -62,7 +66,7 @@ export const Login=()=>{
                 {notExist.error?<p className="-mt-8 mb-2 text-red-600">{notExist.message}</p>:''}
                 <input type="password" className="bg-gray-50 border-solid border-2 border-gray-200 p-2 mb-8 text-lg " placeholder="Entrez votre mot de passe" id='password' name='password' value={form.password} onChange={handleChange} onKeyDown={handleKeyDown} required/>
                 {passwordWarning.error?<p className="-mt-8 mb-2 text-red-600">{passwordWarning.message}</p>:''}
-                <button className="bg-blue-400 text-white rounded transition-all duration-300 hover:bg-blue-700 hover:scale-105" onClick={logIn}>Se connecter</button>
+                {isLoading==true?<button className="bg-blue-200 text-white rounded transition-all duration-300 hover:bg-blue-300 hover:cursor-default">Attend...</button>:<button className="bg-blue-400 text-white rounded transition-all duration-300 hover:bg-blue-700 hover:scale-105" onClick={logIn}>Se connecter</button>}
                 <p className="text-black text-base  mt-7 ml-2 ">T&apos;as pas un compte ? <Link to={'/signup'}>S&apos;identifier</Link></p>
             </div>
         </div>

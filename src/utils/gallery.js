@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export const gallery=[
+export const gallery_1=[
     '/src/assets/gallery/5913784618287481803.jpg',
     '/src/assets/gallery/5913784618287481804.jpg',
     '/src/assets/gallery/5913784618287481805.jpg',
@@ -14,4 +14,22 @@ export const gallery=[
     '/src/assets/gallery/5913784618287481813.jpg',
     '/src/assets/gallery/5913784618287481815.jpg',
     '/src/assets/gallery/5913784618287481821.jpg',
+    "/src/assets/gallery/Cabinet-moderne-1024x683.jpg"
+]
+export const gallery_2=[
+    "/src/assets/gallery/5913784618287481817.jpg",
+    "/src/assets/gallery/5913784618287481818.jpg",
+    "/src/assets/gallery/5913784618287481819.jpg",
+    "/src/assets/gallery/5913784618287481820.jpg", 
+    "/src/assets/gallery/blanchiment-dentaire-7-1024x1024.png",
+    "/src/assets/gallery/blanchiment-dentaire-clinique-dentaire-sana-oris-paris-8.jpg",
+    "/src/assets/gallery/blanchiment-dentaire-min-1024x684.jpg", 
+    "/src/assets/gallery/combien-coute-un-blanchiment-dentaire-et-les-alternatives-gratuites.jpg",
+    "/src/assets/gallery/image.jpg",
+    "/src/assets/gallery/imagee.jpg",
+    "/src/assets/gallery/imageee.jpg",
+    "/src/assets/gallery/imagesd.jpg",
+    "/src/assets/gallery/imageszsd.jpg",
+    "/src/assets/gallery/053936_179DBF5B-5ABE-4215-AD2A-F6E4A99A9A0A.jpg", 
+    "/src/assets/gallery/before-after-dental-implants-smile-restoration.jpg",
 ]
