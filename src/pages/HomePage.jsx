@@ -1,7 +1,7 @@
 
 export const HomePage=()=>{
     const handleClick=()=>{
-        localStorage.getItem('isAuth')=="true"?window.location.replace(`${localStorage.getItem('AuthSecure')}/rendez-vous`):window.location.replace('/login')
+        document.cookie?window.location.replace(`${document.cookie}/rendez-vous`):window.location.replace('/login')
     }
     return(<>
     <div className="flex text-center flex-col text-white mt-56">

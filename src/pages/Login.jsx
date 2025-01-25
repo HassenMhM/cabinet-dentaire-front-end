@@ -37,10 +37,10 @@ export const Login=()=>{
                 }else if(result.message==="User not found"){
                     setNotExist((prev)=>({...prev,error:true,message:"Utilisateur n'existe pas"}))
                 }else if("token" in result){
-                    localStorage.setItem('isAuth',"true")
-                    localStorage.setItem('AuthSecure',result.token)
                     localStorage.setItem('UserEmail',form.email)
-                    window.location.replace(`/${result.token}`)
+                    localStorage.setItem('UserRoleId',result.role_id)
+                    document.cookie = `c=${result.token};max-age=172800;path=/`
+                    window.location.replace(`/${document.cookie}`)  
                 }
             })
             .catch((error) => {

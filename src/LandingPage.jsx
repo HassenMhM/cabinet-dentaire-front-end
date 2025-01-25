@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 import { AproposPage } from "./components/AproposPage"
 import { Header } from "./components/Header"
-import { HomePage } from "./components/HomePage"
-import { ServicesPage } from "./components/services/ServicesPage"
+import { HomePage } from "./pages/HomePage"
+import { ServicesPage } from "./pages/ServicesPage"
 import { Contact } from "./components/Contact"
 import {Gallery} from './components/Gallery'
 import { useLocation } from "react-router-dom"
 import { useEffect } from "react"
 import { Footer } from "./utils/Footer"
 
-function LandingPage(props) {
+export const LandingPage=(props) => {
     const logedIn=props.logedIn
     const location = useLocation();
     useEffect(() => {
@@ -29,5 +29,3 @@ function LandingPage(props) {
     </>
     )
 }
-
-export default LandingPage

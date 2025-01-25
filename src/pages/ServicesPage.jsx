@@ -1,5 +1,5 @@
-import { Service } from "./Service"
-import {services} from './data'
+import { Service } from "../components/services/Service"
+import {services} from '../components/services/data'
 export const ServicesPage=()=>{
     return(<>
     <div className="flex text-center bg-gray-200 flex-col" id="services">

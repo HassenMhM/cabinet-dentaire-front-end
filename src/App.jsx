@@ -1,13 +1,17 @@
-import { Login } from "./components/Login"
+import { Login } from "./pages/Login"
 import {createBrowserRouter,RouterProvider} from 'react-router-dom'
-import LandingPage from "./LandingPage"
-import { SignUp } from "./components/SignUp"
+import {LandingPage} from "./LandingPage"
+import { SignUp } from "./pages/SignUp"
 import { ProtectedRoute } from "./utils/ProtectedRoute"
 import { ProtectedLogedRoute } from "./utils/ProtectedLogedRoute"
-import { MyAccount } from "./components/MyAccount"
-import { SecuritéPage } from "./components/SecuritéPage"
-import { ChangePasswordPage } from "./components/ChangePasswordPage"
-import { RendezVous } from "./components/RendezVous"
+import { MyAccount } from "./pages/MyAccount"
+import { SecuritéPage } from "./pages/SecuritéPage"
+import { ChangePasswordPage } from "./pages/ChangePasswordPage"
+import { RendezVous } from "./pages/RendezVous"
+import { Stock } from "./pages/Stock"
+import { Users } from "./pages/Users"
+import { Patients } from "./pages/Patients"
+import { Doctors } from "./pages/Doctors"
 
 const router=createBrowserRouter([
   {
@@ -21,6 +25,22 @@ const router=createBrowserRouter([
   {
     path:"/signup",
     element:<ProtectedLogedRoute><SignUp/></ProtectedLogedRoute>,
+  },
+  {
+    path:"admin01346220134641354652dlhh211522hutfdty31115cxfcf521310fxfxfxyyyzadmin667528274152/stock",
+    element:<Stock/>
+  },
+  {
+    path:"admin01346220134641354652dlhh211522hutfdty31115cxfcf521310fxfxfxyyyzadmin667528274152/patients",
+    element:<Patients/>,
+  },
+  {
+    path:"admin01346220134641354652dlhh211522hutfdty31115cxfcf521310fxfxfxyyyzadmin667528274152/doctors",
+    element:<Doctors/>,
+  },
+  {
+    path:"admin01346220134641354652dlhh211522hutfdty31115cxfcf521310fxfxfxyyyzadmin667528274152/users",
+    element:<Users/>,
   },
   {
     path:"/:token",

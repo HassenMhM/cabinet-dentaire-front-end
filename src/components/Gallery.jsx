@@ -3,7 +3,7 @@ import {gallery_2} from '../utils/gallery.js'
 export const Gallery=()=>{
     return(
     <>
-    <div className="gallery flex flex-col pl-20 pr-20 pt-20 bg-gray-200">
+    <div className="gallery flex flex-col pl-20 pr-20 pt-20 bg-gray-200" id='gallery'>
         <h1 className="text-3xl font-semibold text-black mb-8 text-center">Gallery</h1>
         <div className="grid grid-cols-5 m-0 gap-4 p-6 justify-center">
             {gallery_1.map((img,index)=>{

@@ -43,7 +43,7 @@ export const ChangePasswordPage=()=>{
                     setPasswordChanged((prev)=>({...prev,successfuly:true,message:"Votre mot de passe a est été changé correctement !!"}))
                     setOldPasswordError((prev)=>({...prev,error:false,message:""}))
                     setNewPasswordError((prev)=>({...prev,error:false,message:""}))
-                    window.location.replace(`/${localStorage.getItem('AuthSecure')}/my-account/Sécurité&confidentialité`)
+                    window.location.replace(`/${document.cookie}/my-account/Sécurité&confidentialité`)
                 }
             })
             .catch((error) => {

@@ -46,7 +46,7 @@ export const SignUp=()=>{
     else if(!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(form.email)){
         setWarning((prev)=>({...prev,"invalidEmail":"Adresse email invalide,veuillez entrer une autre adresse"}))
     }else{setWarning((prev)=>({...prev,"invalidEmail":null}))}
-},[form.email])
+  },[form.email])
   const signup= async ()=>{
     setResultLoading((prev)=>!prev)
     if(form.password!==document.getElementById('confirmedPassword').value){

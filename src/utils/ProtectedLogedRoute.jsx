@@ -2,8 +2,8 @@ import { Navigate } from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
 export const ProtectedLogedRoute=({children})=>{
-    const isLoggedIn=localStorage.getItem("isAuth")||false
-    const token=localStorage.getItem('AuthSecure')
+    var token=null
+    document.cookie==''?token=null:token=document.cookie
     const link=`/${token}` 
-    return isLoggedIn=="true" ?<Navigate to={link} replace />:children
+    return token!=null ?<Navigate to={link} replace />:children
 }
